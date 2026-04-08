@@ -1,0 +1,1 @@
+purple_mercury create_symlinks_for_build --license nd --color color --build_root ../Operations_Manual/antora/modules/ROOT --images_root ../Operations_Manual/images --attachments_root ../Operations_Manual/attachments --log_level 30 --log_name "logs/setup_2.log"

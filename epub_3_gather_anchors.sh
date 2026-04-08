@@ -1,0 +1,1 @@
+java -cp "green_mercury-0.0.4-jar-with-dependencies.jar" edu.marshall.wmul.green_mercury.CLI gather-anchors --asciidoc_source_folder="../Operations_Manual/epub_intermediate/" --anchor_file="../Operations_Manual/anchors.yml"

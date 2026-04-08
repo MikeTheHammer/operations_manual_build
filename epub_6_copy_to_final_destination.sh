@@ -1,0 +1,1 @@
+purple_mercury copy_rendered_items --renders_folder "../Operations_Manual/renders/epub/"  --destination_folder "/mnt/Z-Department_Storage/operations_manual/2026_revision/renders/" --log_level 30 --log_name "logs/epub_6.log"

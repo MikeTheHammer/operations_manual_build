@@ -1,0 +1,1 @@
+purple_mercury build_asciidoc_source_for_antora --asciidoc_source_folder "../Operations_Manual/src/"  --antora_intermediate_folder "../Operations_Manual/antora_intermediate/" --log_level 30 --log_name "logs/antora_1.log"

@@ -1,0 +1,1 @@
+purple_mercury copy_antora_static_folder --antora_static_folder "../Operations_Manual/antora_static/"  --antora_build_folder "../Operations_Manual/antora/" --log_level 30 --log_name "logs/antora_2.log"

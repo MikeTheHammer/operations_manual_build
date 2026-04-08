@@ -1,0 +1,1 @@
+purple_mercury create_symlinks_for_common_items --images_root ../Operations_Manual/images --attachments_root ../Operations_Manual/attachments --log_level 30 --log_name "logs/setup_1.log"

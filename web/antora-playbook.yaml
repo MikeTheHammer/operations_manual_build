@@ -1,0 +1,14 @@
+site:
+  title: WMUL-FM Operations Manual
+  #url: /
+  start_page: operations_manual::01-introduction_volume_i/01-introduction_volume_i.adoc
+content:
+  sources:
+  - url: ../../Operations_Manual/
+    branches: main
+    start_path: antora
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ../../operations_manual_ui
