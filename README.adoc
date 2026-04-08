@@ -1,0 +1,107 @@
+= Operations Manual Build
+
+This is a set of scripts and helper files for building WMUL-FM's Operations Manuals.
+
+These scripts utilize multiple tools throughout the build process. Ruby is used to the majority of work. The Ruby Gem 
+`WMUL Purple Mercury` handles the creation of needed symlinks, running `asciidoctor-reducer` on specified files, copying
+specified files, and running `asciidoctor-pdf` or `asciidoctor-epub` as needed. 
+
+The Java application, WMUL Green Mercury, handles gathering and rewriting the cross-references and anchors.
+
+Antora is a NodeJS application that converts the AsciiDoc files into a web site.
+
+
+== What to do with this repository
+
+This repository needs to be cloned or downloaded into an adjacent folder to the `Operations_Manual` and 
+`operations_manual_ui` folders.
+
+[source,bash]
+----
+myfolder\Operations_Manual
+myfolder\operations_manual_ui
+myfolder\operations_manual_build
+----
+
+
+== Installing Prerequisites
+
+=== Java and WMUL Green Mercury
+
+. Install the Open JDK Java Runtime Environment version 25: `sudo apt install openjdk-25-jre`.
+
+. `cd` into the `operations_manual_build` directory.
+
+. Download the WMUL Green Mercury JAR with dependencies: `wget https://github.com/MikeTheHammer/wmul_green_mercury/releases/download/v.0.0.4/green_mercury-0.0.4-jar-with-dependencies.jar`
+
+=== RVM (Ruby Version Manager) and Ruby. 
+
+. Install RVM: https://rvm.io/rvm/install
++
+[source,bash]
+----
+gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+sudo apt-get install software-properties-common
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get install rvm
+sudo usermod -a -G rvm $USER
+echo 'source "/etc/profile.d/rvm.sh"' >> ~/.bashrc
+----
+
+. Reboot
+
+. Verify RVM: `type rvm | head -n 1` 
++
+The reponse should be: `rvm is a function`
+
+. Install Ruby 3.4.9: `rvm install ruby-3.4.9`
++
+This may take a few minutes, depending on the speed of your system.
+
+. Verify Ruby: `ruby --version`
+
+=== WMUL Purple Mercury
+
+. cd into the `operations_manual_build` folder.
+
+. Install WMUL Purple Mercury: `bundle install`
+
+=== Node Version Manager, Node JS, and Antora
+
+. Install NVM: `wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash`
+
+. Close and reopen your terminal window.
+
+. Verify NVM: `nvm --version`
+
+. Install a node.js LTS: `nvm install --lts`
+
+. cd into the `operations_manual_build/web` folder.
+
+. Install Antora: `node -e "fs.writeFileSync('package.json', '{}')" && npm i -D -E antora`
+
+. Verify Antora: `npx antora -v`
+
+== Setting Up the Symlinks
+
+. cd into the `operations_manual_build` folder. 
+
+. Run setup script: `./setup.sh` 
++
+This runs all of the setup_* scripts, which create symlinks within the ../Operations_Manual folder as needed for the 
+build system.
+
+== Edit Build Scripts
+
+The final build script of each format, `antora_6_copy_to_final_destination.sh`, `epub_6_copy_to_final_destination.sh`, 
+and  `pdf_7_copy_to_final_destination.sh` are configured for WMUL-FM's usage. You will need to set the 
+`--destination_folder` in each one to be a folder accessible from your system.
+
+== Building
+
+. Build Antora: `./build_antora.sh`
+
+. Build PDF: `./build_pdf.sh`
+
+. Build ePubs: `./build_epub.sh`
