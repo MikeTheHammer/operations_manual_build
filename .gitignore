@@ -1,0 +1,6 @@
+*.jar
+*.log
+web/package-lock.json
+web/package.json
+web/node_modules/*
+
