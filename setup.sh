@@ -1,0 +1,4 @@
+./setup_1_create_symlinks_for_common_items.sh
+./setup_2_create_symlinks_for_antora.sh
+./setup_3_create_symlinks_for_pdf.sh
+./setup_4_create_symlinks_for_epub.sh
