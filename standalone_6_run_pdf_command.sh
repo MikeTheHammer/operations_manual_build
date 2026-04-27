@@ -1,0 +1,1 @@
+purple_mercury build_standalones --standalone_build_folder "../Operations_Manual/standalone/"  --renders_folder "../Operations_Manual/renders/standalone/" --log_level 30 --log_name "logs/standalone_6.log"

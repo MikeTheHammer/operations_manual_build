@@ -1,0 +1,1 @@
+purple_mercury build_asciidoc_source_for_standalone --asciidoc_source_folder "../Operations_Manual/src/"  --standalone_intermediate_folder "../Operations_Manual/standalone_intermediate/" --log_level 30 --log_name "logs/standalone_1.log"

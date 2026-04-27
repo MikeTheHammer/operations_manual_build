@@ -2,3 +2,4 @@
 ./setup_2_create_symlinks_for_antora.sh
 ./setup_3_create_symlinks_for_pdf.sh
 ./setup_4_create_symlinks_for_epub.sh
+./setup_5_create_symlinks_for_standalone.sh
