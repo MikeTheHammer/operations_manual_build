@@ -1,1 +1,1 @@
-purple_mercury create_symlinks_for_build --license nd --color grayscale --build_root ../Operations_Manual/pdf --images_root ../Operations_Manual/images --attachments_root ../Operations_Manual/attachments --log_level 30 --log_name "logs/setup_3.log"
+purple_mercury create_symlinks_for_build --license nd --color grayscale --build_root ../operations_manual_source/pdf --images_root ../operations_manual_source/images --attachments_root ../operations_manual_source/attachments --log_level 30 --log_name "logs/setup_3.log"

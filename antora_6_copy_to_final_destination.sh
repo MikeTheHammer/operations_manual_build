@@ -1,1 +1,2 @@
-purple_mercury copy_rendered_items --renders_folder "../Operations_Manual/renders/web/"  --destination_folder "/mnt/T-Operations_Storage/Operations/ops_manual/" --log_level 30 --log_name "logs/antora_6.log"
+purple_mercury copy_rendered_items --renders_folder "../operations_manual_source/renders/web/"  --destination_folder "/mnt/T-Operations_Storage/Operations/ops_manual/" --log_level 30 --log_name "logs/antora_6.log"
+purple_mercury copy_rendered_items --renders_folder "../operations_manual_source/renders/web/"  --destination_folder "../operations_manual/web" --log_level 30 --log_name "logs/antora_6.log"

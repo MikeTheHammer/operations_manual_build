@@ -1,1 +1,1 @@
-purple_mercury build_asciidoc_source_for_epub --asciidoc_source_folder "../Operations_Manual/src/"  --epub_intermediate_folder "../Operations_Manual/epub_intermediate/" --log_level 30 --log_name "logs/epub_1.log"
+purple_mercury build_asciidoc_source_for_epub --asciidoc_source_folder "../operations_manual_source/src/"  --epub_intermediate_folder "../operations_manual_source/epub_intermediate/" --log_level 30 --log_name "logs/epub_1.log"

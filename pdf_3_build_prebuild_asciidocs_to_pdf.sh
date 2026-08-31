@@ -1,1 +1,1 @@
-purple_mercury build_prebuild_asciidocs_to_pdf --asciidoc_source_folder "../Operations_Manual/src/"  --pdf_build_folder "../Operations_Manual/pdf/" --log_level 30 --log_name "logs/pdf_3.log"
+purple_mercury build_prebuild_asciidocs_to_pdf --asciidoc_source_folder "../operations_manual_source/src/"  --pdf_build_folder "../operations_manual_source/pdf/" --log_level 30 --log_name "logs/pdf_3.log"

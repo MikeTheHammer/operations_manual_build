@@ -1,1 +1,1 @@
-java -cp "green_mercury-0.0.4-jar-with-dependencies.jar" edu.marshall.wmul.green_mercury.CLI preprocess-file --asciidoc_source_folder="../Operations_Manual/pdf_intermediate/" --anchor_file="../Operations_Manual/anchors.yml" --asciidoc_build_folder="../Operations_Manual/pdf/"
+java -cp "green_mercury-0.0.4-jar-with-dependencies.jar" edu.marshall.wmul.green_mercury.CLI preprocess-file --asciidoc_source_folder="../operations_manual_source/pdf_intermediate/" --anchor_file="../operations_manual_source/anchors.yml" --asciidoc_build_folder="../operations_manual_source/pdf/"

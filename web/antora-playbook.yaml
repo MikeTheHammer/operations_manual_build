@@ -4,7 +4,7 @@ site:
   start_page: operations_manual::01-introduction_volume_i/01-introduction_volume_i.adoc
 content:
   sources:
-  - url: ../../Operations_Manual/
+  - url: ../../operations_manual_source/
     branches: main
     start_path: antora
 ui:
