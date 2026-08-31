@@ -1,6 +1,6 @@
 site:
   title: WMUL-FM Operations Manual
-  #url: /
+  url: https://wmul-fm.github.io/operations_manual/
   start_page: operations_manual::01-introduction_volume_i/01-introduction_volume_i.adoc
 content:
   sources:
