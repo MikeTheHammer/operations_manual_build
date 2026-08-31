@@ -13,16 +13,20 @@ Antora is a NodeJS application that converts the AsciiDoc files into a web site.
 
 == What to do with this repository
 
-This repository needs to be cloned or downloaded into an adjacent folder to the `Operations_Manual` and 
+This repository needs to be cloned or downloaded into an adjacent folder to the `operations_manual_source` and 
 `operations_manual_ui` folders.
 
 [source,bash]
 ----
-myfolder\Operations_Manual
+myfolder\operations_manual_source
 myfolder\operations_manual_ui
 myfolder\operations_manual_build
 ----
 
+== Operating System
+
+These instructions presume that you are working on an Ubuntu-based system. If you are using something else, you will 
+have to translate these instructions into your system.
 
 == Installing Prerequisites
 
@@ -32,7 +36,7 @@ myfolder\operations_manual_build
 
 . `cd` into the `operations_manual_build` directory.
 
-. Download the WMUL Green Mercury JAR with dependencies: `wget https://github.com/MikeTheHammer/wmul_green_mercury/releases/download/v.0.0.4/green_mercury-0.0.4-jar-with-dependencies.jar`
+. Download the WMUL Green Mercury JAR with dependencies: `wget https://github.com/WMUL-FM/wmul_green_mercury/releases/download/v.0.0.4/green_mercury-0.0.4-jar-with-dependencies.jar`
 
 === RVM (Ruby Version Manager) and Ruby. 
 
@@ -89,14 +93,15 @@ This may take a few minutes, depending on the speed of your system.
 
 . Run setup script: `./setup.sh` 
 +
-This runs all of the setup_* scripts, which create symlinks within the ../Operations_Manual folder as needed for the 
-build system.
+This runs all of the setup_* scripts, which create symlinks within the `../operations_manual_source` folder as needed 
+for the build system.
+
 
 == Edit Build Scripts
 
 The final build script of each format, `antora_6_copy_to_final_destination.sh`, `epub_6_copy_to_final_destination.sh`, 
-and  `pdf_7_copy_to_final_destination.sh` are configured for WMUL-FM's usage. You will need to set the 
-`--destination_folder` in each one to be a folder accessible from your system.
+`pdf_7_copy_to_final_destination.sh`, and `standalone_7_copy_to_final_destination.sh` are configured for WMUL-FM's 
+usage. You will need to set the `--destination_folder` in each one to be a folder accessible from your system.
 
 == Building
 
@@ -105,3 +110,5 @@ and  `pdf_7_copy_to_final_destination.sh` are configured for WMUL-FM's usage. Yo
 . Build PDF: `./build_pdf.sh`
 
 . Build ePubs: `./build_epub.sh`
+
+. Build Standalones: `./build_standalone.sh`
