@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/MikeTheHammer/wmul_purple_mercury
-  revision: 20cff502ccb6d73b57658a1da2f862042c229113
+  revision: 73de0c1b7ca302990b9c9f3e1505d82b04cfc9e6
   specs:
-    wmul_purple_mercury (0.0.16)
+    wmul_purple_mercury (0.0.26)
       asciidoctor (~> 2.0, >= 2.0.26)
       asciidoctor-epub3 (~> 2.3, >= 2.3.0)
       asciidoctor-pdf (~> 2.3, >= 2.3.24)
@@ -127,7 +127,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  wmul_purple_mercury (= 0.0.16)!
+  wmul_purple_mercury (= 0.0.26)!
 
 BUNDLED WITH
    2.6.9
