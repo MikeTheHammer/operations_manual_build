@@ -109,6 +109,209 @@ usage. You will need to set the `--destination_folder` in each one to be a folde
 
 . Build PDF: `./build_pdf.sh`
 
-. Build ePubs: `./build_epub.sh`
+. Build ePub: `./build_epub.sh`
 
-. Build Standalones: `./build_standalone.sh`
+. Build Standalone: `./build_standalone.sh`
+
+
+== Step by Step -- Setup
+
+The setup steps should be executed first. They create important symlinks within the folder structure. (If you are from 
+the Windows world, a symlink is like a folder shortcut.)
+
+* `setup_1_create_symlinks_for_common_items.sh` Creates symlinks within the `/images` and `/attachments` folders.
+
+* `setup_2_create_symlinks_for_antora.sh` Creates the symlinks from `/antora/modules/ROOT/images` to the appropriate 
+subfolder inside `/images` and from `/antora/modules/ROOT/attachments` to the appropriate subfolder inside 
+`/attachments` . The appropriate subfolders will depending on the selected color and license. 
+
+* `setup_3_create_symlinks_for_pdf.sh` Creates the symlinks from `/pdf/images` to the appropriate subfolder inside 
+`/images` and from `/pdf/attachments` to the appropriate subfolder inside `/attachments` . The appropriate subfolders 
+will depending on the selected color and license. 
+
+* `setup_4_create_symlinks_for_epub.sh` Creates the symlinks from `/epub/images` to the appropriate subfolder inside 
+`/images` and from `/epub/attachments` to the appropriate subfolder inside `/attachments` . The appropriate subfolders 
+will depending on the selected color and license. 
+
+* `setup_5_create_symlinks_for_standalone.sh` Creates the symlinks from `/stanalone/images` to the appropriate 
+subfolder inside `/images` and from `/standalone/attachments` to the appropriate subfolder inside `/attachments` . The 
+appropriate subfolders will depending on the selected color and license. 
+
+* `setup.sh` Conveniently runs the previous five commands sequentially.
+
+
+== Step-By-Step - Antora
+
+Antora is the software that creates the web version of the Operations Manual. 
+
+* `antora_0_clean_build_folders.sh` Cleans out the build folders so that the build process has a clean slate at each 
+step. Files that have been deleted or renamed in the `/src` folder might still exist in the build folders. 
+
+** `../operations_manual_source/antora_intermediate/` Contains the output of step 1, which is used as the input of 
+steps 3 and 4. 
+
+** `../operations_manual_source/antora/modules/ROOT/pages/` Contains the output of step 4 and is used as the input of
+step 5. 
+
+** `../operations_manual_source/renders/web/` Contains the built webpage output of the antora command in step 5.
+
+** `/mnt/T-Operations_Storage/Operations/ops_manual/` One of two folders to which the built webpage is copied. This 
+folder is the mount point for an internal web server that is used when editing and debugging.
+
+** `../operations_manual/web` The second folder to which the built webpage is copied. This folder is contained in a git 
+repo. When a new version of the manual is ready to be published, this repo is committed and pushed to GitHub for the 
+GitHub pages.
+
+* `antora_1_build_source_for_antora.sh` Builds from the `/src` folder into the `/antora_intermediate` folder. All 
+asciidoc include directives and ifdefs are resolved at this step. 
+
+* `antora_2_copy_antora_static_folder.sh` Copies all of the items from the `/antora_static` folder into the `/antora` 
+folder. These files include the antora `nav.adoc` file and the `antora.yml` playbook. 
+
+* `antora_3_gather_anchors.sh` Runs green_mercury on the contents of `/antora_intermediate` and finds all of the anchors, 
+`!!anchor name="anchor_name ref_text="Anchor Example on Page [page] of Volume I" /!!` , and places them into 
+`anchors.yml`. 
+
+* `antora_4_preprocess_files.sh` Runs green_mercury on the contents of `/antora_intermediate` and replaces all of the 
+green_mercury anchors and cross-references with asciidoc anchors and cross-references. If the page numbers have been
+input into `anchors.yml`, then those page numbers are embedded into the cross-references. The results are output to 
+`/antora`.
+
+* `antora_5_run_antora_command.sh` Runs the antora command from the `/web` folder in this repo against the `/antora` 
+folder. The results are output to `/renders/web`.
+
+* `antora_6_copy_to_final_destination.sh` Copies the contents of `/renders/web` to 
+`/mnt/T-Operations_Storage/Operations/ops_manual/` and `../operations_manual/web`.
+
+* `build_antora.sh` Conveniently runs the previous six commands sequentially.
+
+
+== Step-By-Step - ePub
+
+This sequence of commands results in ePub versions of the manual created by asciidoctor-epub3.
+
+* `epub_0_clean_build_folders.sh` Cleans out the build folders so that the build process has a clean slate at each 
+step. Files that have been deleted or renamed in the `/src` folder might still exist in the build folders. The final 
+step re-creates the symlinks from `/epub/images` and `/epub/attachments` to the appropriate `/images` and 
+`/attachments` subfolders.
+
+** `../operations_manual_source/epub_intermediate/` Contains the output of step 1, which is used as the input of 
+steps 3 and 4. 
+
+** `../operations_manual_source/epub/` Contains the output of step 4 and is used as the input of step 5. 
+
+** `../operations_manual_source/renders/epub/` Contains the built ePub output of step 5.
+
+* `epub_1_build_source_for_epub.sh` Builds from the `/src` folder into the `/epub_intermediate` folder. All 
+asciidoc include directives and ifdefs are resolved at this step. 
+
+* `epub_2_copy_epub_static_folder.sh` Copies all of the items from the `/epub_static` folder into the `/epub` 
+folder. These files are what build each actual volume of the epub by using asciidoc `include` commands to include the 
+files in the `/epub` subfolders. 
+
+* `epub_3_gather_anchors.sh` Runs green_mercury on the contents of `/epub_intermediate` and finds all of the anchors, 
+`!!anchor name="anchor_name ref_text="Anchor Example on Page [page] of Volume I" /!!` , and places them into 
+`anchors.yml`. 
+
+* `epub_4_preprocess_files.sh` Runs green_mercury on the contents of `/epub_intermediate` and replaces all of the 
+green_mercury anchors and cross-references with asciidoc anchors and cross-references. If the page numbers have been
+input into `anchors.yml`, then those page numbers are embedded into the cross-references. The results are output to 
+`/epub`.
+
+* `epub_5_run_epub_command.sh` Runs the epub command on the files in the root `/epub` folder. These files should be the 
+ones the came from `/epub_static`. The results are output to `/renders/epub`.
+
+* `epub_6_copy_to_final_destination.sh` Copies the contents of `/renders/epub` to 
+`/mnt/Z-Department_Storage/operations_manual/2026_revision/renders/`.
+
+* `build_epub.sh` Conveniently runs the previous six commands sequentially.
+
+
+== Step-By-Step - PDF
+
+This sequence of commands results in ePub versions of the manual created by asciidoctor-pdf. It includes an extra step 
+that is not needed for any of the other versions.
+
+* `pdf_0_clean_build_folders.sh` Cleans out the build folders so that the build process has a clean slate at each 
+step. Files that have been deleted or renamed in the `/src` folder might still exist in the build folders. The final 
+step re-creates the symlinks from `/pdf/images` and `/pdf/attachments` to the appropriate `/images` and 
+`/attachments` subfolders.
+
+** `../operations_manual_source/pdf_intermediate/` Contains the output of step 1, which is used as the input of 
+steps 4 and 5. 
+
+** `../operations_manual_source/pdf/` Contains the output of step 5 and is used as the input of step 6. 
+
+** `../operations_manual_source/renders/pdf/` Contains the built pdf output of step 6.
+
+* `pdf_1_build_source_for_pdf.sh` Builds from the `/src` folder into the `/pdf_intermediate` folder. All 
+asciidoc include directives and ifdefs are resolved at this step. 
+
+* `pdf_2_copy_pdf_static_folder.sh` Copies all of the items from the `/pdf_static` and `/pdf_theme` folders into the 
+`/pdf` folder. These files are what build each actual volume of the pdf by using asciidoc `include` commands to include 
+the files in the `/pdf` subfolders. 
+
+* `pdf_3_build_prebuild_asciidocs_to_pdf.sh` Certain asciidoc files are built to pdf separetely from the main document.
+These are files that need a different theme applied. Examples include the chapter leading photo pages, the front matter,
+the cover, and anything that is on letter head. 
+
+* `pdf_4_gather_anchors.sh` Runs green_mercury on the contents of `/pdf_intermediate` and finds all of the anchors, 
+`!!anchor name="anchor_name ref_text="Anchor Example on Page [page] of Volume I" /!!` , and places them into 
+`anchors.yml`. 
+
+* `pdf_5_preprocess_files.sh` Runs green_mercury on the contents of `/pdf_intermediate` and replaces all of the 
+green_mercury anchors and cross-references with asciidoc anchors and cross-references. If the page numbers have been
+input into `anchors.yml`, then those page numbers are embedded into the cross-references. The results are output to 
+`/epub`.
+
+* `pdf_6_run_pdf_command.sh` Runs the pdf command on the files in the root `/pdf` folder. These files should be the 
+ones the came from `/pdf_static`. The results are output to `/renders/pdf`.
+
+* `pdf_7_copy_to_final_destination.sh` Copies the contents of `/renders/pdf` to 
+`/mnt/Z-Department_Storage/operations_manual/2026_revision/renders/`.
+
+* `build_pdf.sh` Conveniently runs the previous seven commands sequentially.
+
+
+== Step-By-Step - Standalone
+
+This sequence of commands results in PDF versions of the small sections of the manual. These allow for sections of the
+manual to be converted into handouts and wall posters. 
+
+* `standalone_0_clean_build_folders.sh` Cleans out the build folders so that the build process has a clean slate at 
+each step. Files that have been deleted or renamed in the `/src` folder might still exist in the build folders. The 
+final step re-creates the symlinks from `/standalone/images` and `/standalone/attachments` to the appropriate 
+`/images` and `/attachments` subfolders.
+
+** `../operations_manual_source/standalone_intermediate/` Contains the output of step 1, which is used as the input of 
+steps 3 and 4. 
+
+** `../operations_manual_source/standalone/` Contains the output of step 4 and is used as the input of step 5. 
+
+** `../operations_manual_source/renders/stanalone/` Contains the built PDF output of step 5.
+
+* `standalone_1_build_source_for_standalone.sh` Builds from the `/src` folder into the `/standalone_intermediate` 
+folder. All asciidoc include directives and ifdefs are resolved at this step. 
+
+* `standalone_2_copy_standalone_static_folder.sh` Copies all of the items from the `/standalone_static` folder into 
+the `/standalone` folder. These files are what build each individual pdf using asciidoc `include` commands to include 
+the files in the `/standalone` subfolders. 
+
+* (There is no standalone_3.) 
+
+* `standalone_4_gather_anchors.sh` Runs green_mercury on the contents of `/standalone_intermediate` and finds all of 
+the anchors, `!!anchor name="anchor_name ref_text="Anchor Example on Page [page] of Volume I" /!!` , and places them 
+into `anchors.yml`. 
+
+* `standalone_5_preprocess_files.sh` Runs green_mercury on the contents of `/standalone_intermediate` and replaces all 
+of the green_mercury anchors and cross-references with asciidoc anchors and cross-references. If the page numbers have 
+been input into `anchors.yml`, then those page numbers are embedded into the cross-references. The results are output 
+to `/stanalone`.
+
+* `standalone_6_run_pdf_command.sh` Runs the pdf command on the files in the root `/standalone` folder. These files 
+should be the ones the came from `/standalone_static`. The results are output to `/renders/standalone`.
+
+* `standalone_7_copy_to_final_destination.sh` Copies the contents of `/renders/standalone` to 
+`/mnt/Z-Department_Storage/operations_manual/2026_revision/renders/`.
+
+* `build_standalone.sh` Conveniently runs the previous six commands sequentially.
